@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+#include <cstdlib>
+using namespace std;
+#define int long long
+#define piii pair<int,int>
+//sort(puch,puch+n,greater<int>());
+struct place{
+	int u,v;
+};
+vector<place>s;
+bool cmp(place x,place y){
+	if(x.v==y.v){
+		return x.u<y.u;
+	}
+	else return x.v<y.v;
+}
+int k,n,m;
+int ans,maxx,minn;
+int arr[1001];
+vector<int>d[1001];
+int vis[1001],mk[1001];
+int dx[4]={1,-1,0,0}, dy[4]={0,0,1,-1};
+void dfs(int x){
+	vis[x]=1;
+	mk[x]++;
+	for(int i=0;i<d[x].size();i++){
+		int next=d[x][i];
+		if(!vis[next]){
+			dfs(next);
+		}
+	}
+}
+
+signed main(){
+	int x,y;
+	cin>>k>>n>>m;
+	for(int i=1;i<=k;i++){
+		cin>>arr[i];
+	}
+	for(int i=1;i<=m;i++){
+		cin>>x>>y;
+		d[x].push_back(y);
+	}
+	for(int i=1;i<=k;i++){
+		for(int j=1;j<=n;i++){
+			vis[j]=0;
+		}
+		dfs(arr[i]);
+	}
+	for(int i=1;i<=n;i++){
+		if(mk[i]==k){
+			ans++;
+		}
+	}
+	cout<<ans<<endl;
+}        
